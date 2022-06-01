@@ -1,0 +1,10 @@
+menuBgm;
+planeBgm;
+planeShoot;
+planeExplosion;
+gameWin;
+gameLose;
+bossAppear;
+bossShoot;
+playerPlaneExplosion;
+bossExplosion
