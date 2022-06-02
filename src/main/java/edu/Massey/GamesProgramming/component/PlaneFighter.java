@@ -2,6 +2,7 @@ package edu.Massey.GamesProgramming.component;
 
 import edu.Massey.GamesProgramming.Main;
 import edu.Massey.GamesProgramming.utility.AudioClip;
+import edu.Massey.GamesProgramming.utility.GameStatus;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -37,7 +38,7 @@ public class PlaneFighter extends ParentCompo {
         super.paintObj(graphics);
         //Collision check(Player&Boss)
         if (this.jframe.boss != null && this.getRec().intersects(this.jframe.boss.getRec())) {
-            Main.status = 3;
+            Main.status = GameStatus.FAIL;
         }
     }
 

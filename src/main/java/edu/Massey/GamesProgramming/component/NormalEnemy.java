@@ -35,7 +35,7 @@ public class NormalEnemy extends ParentCompo {
                 Utilities.deleteList.add(explodeObj);
                 Utilities.deleteList.add(this);
             } else {
-                Main.status = 3;
+                Main.status = GameStatus.FAIL;
             }
         }
         //Enemy plane disappear when hit the lower frame

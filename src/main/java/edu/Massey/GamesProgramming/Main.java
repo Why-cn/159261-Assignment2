@@ -15,17 +15,19 @@ Entrance of the app
  */
 
 public class Main extends JFrame {
-    // === Game Settings ===
+    // === Basic Settings ===
 
     //JFrame size
     int width = 600;
     int height = 600;
     //Count of repaint frame
     int frame = 1;
-    //Number of enemy
+
+    // === Game Settings ===
+    // Number of enemy
     int enemyNum = 0;
-    //Status 0:initialize 1:playing 2:pause 3:fail 4:pass
-    public static int status = 0;
+    // Game Status
+    public static GameStatus status = GameStatus.INITIALIZE;
     //Score
     public static int score = 0;
     //Fighter life
@@ -58,7 +60,7 @@ public class Main extends JFrame {
     private final String gameLosePath = soundbase + "gameover.wav";
 
 
-    // === Images ===
+    // === Solid ===
     // Background
     Background bg = new Background(Utilities.backgroundImg, 0, -1000, 2);
     // Player plane fighter
@@ -66,7 +68,7 @@ public class Main extends JFrame {
     // Boss plane
     public EnemyBoss boss = null;
 
-    // Entrance of the game
+    // === Entrance of the game ===
     public static void main(String[] args) {
         Main gameFrame = new Main();
         gameFrame.start();
@@ -98,8 +100,8 @@ public class Main extends JFrame {
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == 1 && status == 0) {
-                    status = 1;
+                if (e.getButton() == 1 && status == GameStatus.INITIALIZE) {
+                    status = GameStatus.PLAYING;
                     //Start playing BGM
                     AudioClip.stopAudioLoop(menuBgm);
                     AudioClip.startAudioLoop(planeBgm);
@@ -113,11 +115,11 @@ public class Main extends JFrame {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == 32) {
                     switch (status) {
-                        case 1 -> {
-                            status = 2;
+                        case PLAYING -> {
+                            status = GameStatus.PAUSE;
                             repaint();
                         }
-                        case 2 -> status = 1;
+                        case PAUSE -> status = GameStatus.PLAYING;
                         default -> {
                         }
                     }
@@ -127,7 +129,7 @@ public class Main extends JFrame {
 
         //Recreate & repaint everything
         while (true) {
-            if (status == 1) {
+            if (status == GameStatus.PLAYING) {
                 createCompo();
                 repaint();
             }
@@ -148,14 +150,14 @@ public class Main extends JFrame {
         graphics.fillRect(0, 0, width, height);
         graphics.drawImage(Utilities.backgroundImg, 0, 0, null);
         frame++;
-        if (status == 0) {
+        if (status == GameStatus.INITIALIZE) {
             //Menu
             Utilities.drawMessage(graphics, "WWⅡ Plane Shooting fighter", Color.white, 40, 50, 150);
             Utilities.drawMessage(graphics, "Click mouse to start game", Color.white, 30, 150, 350);
             Utilities.drawMessage(graphics, "Mouse to control the plane", Color.white, 20, 200, 400);
             Utilities.drawMessage(graphics, "Space to pause the game", Color.white, 20, 200, 440);
         }
-        if (status == 1) {
+        if (status == GameStatus.PLAYING) {
             Utilities.componentList.addAll(Utilities.explodeArrayList);
             //Playing
             for (int i = 0; i < Utilities.componentList.size(); i++) {
@@ -163,11 +165,11 @@ public class Main extends JFrame {
             }
             Utilities.componentList.removeAll(Utilities.deleteList);
         }
-        if (status == 2) {
+        if (status == GameStatus.PAUSE) {
             //Pause
             Utilities.drawMessage(graphics, "Click space to continue game", Color.yellow, 40, 60, 300);
         }
-        if (status == 3) {
+        if (status == GameStatus.FAIL) {
             //Being shot down
             AudioClip.playAudio(playerPlaneExplosion);
             AudioClip.stopAudioLoop(planeBgm);
@@ -175,7 +177,7 @@ public class Main extends JFrame {
             Utilities.drawMessage(graphics, "GAME OVER", Color.RED, 50, 150, 300);
             AudioClip.playAudio(gameLose);
         }
-        if (status == 4) {
+        if (status == GameStatus.PASS) {
             //Defeat the Boss
             AudioClip.playAudio(bossExplosion);
             AudioClip.stopAudioLoop(planeBgm);
@@ -183,7 +185,7 @@ public class Main extends JFrame {
             Utilities.drawMessage(graphics, "YOU WIN", Color.green, 50, 160, 300);
             AudioClip.playAudio(gameWin);
         }
-         if (status != 0) {
+         if (status != GameStatus.INITIALIZE) {
             Utilities.drawMessage(graphics, score + " points", Color.white, 30, 30, 100);
             Utilities.drawMessage(graphics, "Plane: " + lives, Color.white, 30, 450, 100);
         }

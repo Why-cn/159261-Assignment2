@@ -37,7 +37,7 @@ public class EnemyBoss extends ParentCompo {
                 life--;
             }
             if (life <= 0) {
-                Main.status = 4;
+                Main.status = GameStatus.PASS;
             }
         }
         //White backcolor of life value
