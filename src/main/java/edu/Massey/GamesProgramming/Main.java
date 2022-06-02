@@ -15,6 +15,8 @@ Entrance of the app
  */
 
 public class Main extends JFrame {
+    // === Game Settings ===
+
     //JFrame size
     int width = 600;
     int height = 600;
@@ -30,25 +32,41 @@ public class Main extends JFrame {
     public static int lives = 3;
     //Cache image
     Image cacheImage = null;
-    //Sound setting
+
+
+    // === Sound settings ===
+    private final String soundbase = "src/main/resources/sounds/";
     public AudioClip menuBgm;
+    private final String menuBgmPath = soundbase + "menumusic.wav";
     public AudioClip planeBgm;
+    private final String planeBgmPath = "src/main/resources/bgm/bgm.wav";
     public AudioClip planeShoot;
+    private final String planeShootPath = soundbase + "shot.wav";
     public AudioClip bossAppear;
+    private final String bossAppearPath = soundbase + "bossappear.wav";
     public AudioClip bossShoot;
+    private final String bossShootPath = soundbase + "bossshot.wav";
     public AudioClip planeExplosion;
+    private final String planeExplosionPath = soundbase + "gameover.wav";
     public AudioClip bossExplosion;
+    private final String bossExplosionPath = soundbase + "explosion.wav";
     public AudioClip playerPlaneExplosion;
+    private final String playerPlaneExplosionPath = soundbase + "planeexplosion.wav";
     public AudioClip gameWin;
+    private final String gameWinPath = soundbase + "stageclear.wav";
     public AudioClip gameLose;
-    //Background
+    private final String gameLosePath = soundbase + "gameover.wav";
+
+
+    // === Images ===
+    // Background
     Background bg = new Background(Utilities.backgroundImg, 0, -1000, 2);
-    //Player plane fighter
+    // Player plane fighter
     public PlaneFighter planeFighter = new PlaneFighter(Utilities.fighterImg, 290, 550, 20, 30, 0, this);
-    //Boss plane
+    // Boss plane
     public EnemyBoss boss = null;
 
-    //Entrance of the game
+    // Entrance of the game
     public static void main(String[] args) {
         Main gameFrame = new Main();
         gameFrame.start();
@@ -64,16 +82,16 @@ public class Main extends JFrame {
         Utilities.componentList.add(bg);
         Utilities.componentList.add(planeFighter);
         //Load sounds
-        menuBgm = AudioClip.loadAudio("src/main/resources/sounds/menumusic.wav");
-        planeBgm = AudioClip.loadAudio("src/main/resources/bgm/bgm.wav");
-        planeShoot = AudioClip.loadAudio("src/main/resources/sounds/shot.wav");
-        planeExplosion = AudioClip.loadAudio("src/main/resources/sounds/explosion.wav");
-        gameWin = AudioClip.loadAudio("src/main/resources/sounds/stageclear.wav");
-        gameLose = AudioClip.loadAudio("src/main/resources/sounds/gameover.wav");
-        bossAppear = AudioClip.loadAudio("src/main/resources/sounds/bossappear.wav");
-        bossShoot = AudioClip.loadAudio("src/main/resources/sounds/bossshot.wav");
-        playerPlaneExplosion = AudioClip.loadAudio("src/main/resources/sounds/planeexplosion.wav");
-        bossExplosion = AudioClip.loadAudio("src/main/resources/sounds/bossexplosion.wav");
+        menuBgm = AudioClip.loadAudio(menuBgmPath);
+        planeBgm = AudioClip.loadAudio(planeBgmPath);
+        planeShoot = AudioClip.loadAudio(planeShootPath);
+        planeExplosion = AudioClip.loadAudio(planeExplosionPath);
+        gameWin = AudioClip.loadAudio(gameWinPath);
+        gameLose = AudioClip.loadAudio(gameLosePath);
+        bossAppear = AudioClip.loadAudio(bossAppearPath);
+        bossShoot = AudioClip.loadAudio(bossShootPath);
+        playerPlaneExplosion = AudioClip.loadAudio(playerPlaneExplosionPath);
+        bossExplosion = AudioClip.loadAudio(bossExplosionPath);
         //Start menu BGM
         AudioClip.startAudioLoop(menuBgm);
         //Click mouse to start
