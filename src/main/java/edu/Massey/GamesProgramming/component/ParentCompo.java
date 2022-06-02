@@ -58,6 +58,7 @@ public class ParentCompo {
         graphics.drawImage(img, x, y, null);
     }
 
+    // Hitbox
     public Rectangle getRec() {
         return new Rectangle(x, y, width, height);
     }

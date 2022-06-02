@@ -36,7 +36,7 @@ public class PlaneFighter extends ParentCompo {
     @Override
     public void paintObj(Graphics graphics) {
         super.paintObj(graphics);
-        //Collision check(Player&Boss)
+        //Collision check(Player&Boss) : If the player plane hit the boss, then instantly fail
         if (this.jframe.boss != null && this.getRec().intersects(this.jframe.boss.getRec())) {
             Main.status = GameStatus.FAIL;
         }

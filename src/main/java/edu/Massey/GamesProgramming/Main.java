@@ -50,11 +50,11 @@ public class Main extends JFrame {
     public AudioClip bossShoot;
     private final String bossShootPath = soundbase + "bossshot.wav";
     public AudioClip planeExplosion;
-    private final String planeExplosionPath = soundbase + "gameover.wav";
+    private final String planeExplosionPath = soundbase + "planeexplosion.wav";
     public AudioClip bossExplosion;
     private final String bossExplosionPath = soundbase + "explosion.wav";
     public AudioClip playerPlaneExplosion;
-    private final String playerPlaneExplosionPath = soundbase + "planeexplosion.wav";
+    private final String playerPlaneExplosionPath = soundbase + "gameover.wav";
     public AudioClip gameWin;
     private final String gameWinPath = soundbase + "stageclear.wav";
     public AudioClip gameLose;
@@ -181,12 +181,14 @@ public class Main extends JFrame {
         }
         if (status == GameStatus.FAIL) {
             //Being shot down
+            lives = 0;
             AudioClip.playAudio(playerPlaneExplosion);
             AudioClip.stopAudioLoop(planeBgm);
             graphics.setColor(Color.BLACK);
             graphics.fillRect(0, 0, width, height);
             Utilities.drawMessage(graphics, "GAME OVER", Color.RED, 50, 150, 300);
-            Utilities.drawMessage(graphics, "Click space to restart game", Color.yellow, 40, 60, 300);
+            Utilities.drawMessage(graphics, "Hint: Don't crash onto the boss!", Color.yellow, 30, 50, 500);
+            Utilities.drawMessage(graphics, "Click space to restart game", Color.yellow, 40, 60, 400);
             AudioClip.playAudio(gameLose);
         }
         if (status == GameStatus.PASS) {
@@ -196,7 +198,7 @@ public class Main extends JFrame {
             graphics.setColor(Color.BLUE);
             graphics.fillRect(0, 0, width, height);
             Utilities.drawMessage(graphics, "YOU WIN", Color.GREEN, 50, 160, 300);
-            Utilities.drawMessage(graphics, "Click space to restart game", Color.yellow, 40, 60, 300);
+            Utilities.drawMessage(graphics, "Click space to restart game", Color.yellow, 40, 60, 400);
 
             AudioClip.playAudio(gameWin);
         }
@@ -238,7 +240,10 @@ public class Main extends JFrame {
         score = 0;
         lives = currentHardLevel[0];
         Utilities.componentList.clear();
+        Utilities.componentList.add(bg);
+        Utilities.componentList.add(planeFighter);
         boss = null;
         status = GameStatus.PLAYING;
+        AudioClip.startAudioLoop(planeBgm);
     }
 }
