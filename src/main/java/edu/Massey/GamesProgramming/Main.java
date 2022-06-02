@@ -9,6 +9,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 /*
 Entrance of the app
@@ -23,17 +24,17 @@ public class Main extends JFrame {
     //Count of repaint frame
     int frame = 1;
 
-    // === Game Settings ===
-    // Number of enemy
-    int enemyNum = 0;
-    // Game Status
-    public static GameStatus status = GameStatus.INITIALIZE;
-    //Score
-    public static int score = 0;
+    // === Hard Level Settings ===
+    private static int[] easy = {5, 30, 15, 12, 20};
+    private static int[] test = {5, 1, 15, 12, 20};
+    private static int[] currentHardLevel = test;
     //Fighter life
-    public static int lives = 3;
-    //Cache image
-    Image cacheImage = null;
+    public static int lives = currentHardLevel[0];
+    // Reaching score of the boss appearing
+    private int reachingScore = currentHardLevel[1];
+    private int planeFireRate = currentHardLevel[2]; // less is faster
+    private int enemyGeneRate = currentHardLevel[3]; // less is more frequent
+    private int bossFireRate = currentHardLevel[4]; // less is faster
 
 
     // === Sound settings ===
@@ -60,13 +61,21 @@ public class Main extends JFrame {
     private final String gameLosePath = soundbase + "gameover.wav";
 
 
-    // === Solid ===
+    // === Init Settings ===
     // Background
     Background bg = new Background(Utilities.backgroundImg, 0, -1000, 2);
     // Player plane fighter
     public PlaneFighter planeFighter = new PlaneFighter(Utilities.fighterImg, 290, 550, 20, 30, 0, this);
     // Boss plane
     public EnemyBoss boss = null;
+    // Number of enemy
+    int enemyNum = 0;
+    // Game Status
+    public static GameStatus status = GameStatus.INITIALIZE;
+    // Score
+    public static int score = 0;
+    //Cache image
+    Image cacheImage = null;
 
     // === Entrance of the game ===
     public static void main(String[] args) {
@@ -74,7 +83,7 @@ public class Main extends JFrame {
         gameFrame.start();
     }
 
-    //Initialize
+    // === Initialize ===
     public void start() {
         this.setVisible(true);
         this.setSize(width, height);
@@ -120,6 +129,7 @@ public class Main extends JFrame {
                             repaint();
                         }
                         case PAUSE -> status = GameStatus.PLAYING;
+                        case FAIL, PASS -> restart();
                         default -> {
                         }
                     }
@@ -173,16 +183,21 @@ public class Main extends JFrame {
             //Being shot down
             AudioClip.playAudio(playerPlaneExplosion);
             AudioClip.stopAudioLoop(planeBgm);
+            graphics.setColor(Color.BLACK);
             graphics.fillRect(0, 0, width, height);
             Utilities.drawMessage(graphics, "GAME OVER", Color.RED, 50, 150, 300);
+            Utilities.drawMessage(graphics, "Click space to restart game", Color.yellow, 40, 60, 300);
             AudioClip.playAudio(gameLose);
         }
         if (status == GameStatus.PASS) {
             //Defeat the Boss
             AudioClip.playAudio(bossExplosion);
             AudioClip.stopAudioLoop(planeBgm);
+            graphics.setColor(Color.BLUE);
             graphics.fillRect(0, 0, width, height);
-            Utilities.drawMessage(graphics, "YOU WIN", Color.green, 50, 160, 300);
+            Utilities.drawMessage(graphics, "YOU WIN", Color.GREEN, 50, 160, 300);
+            Utilities.drawMessage(graphics, "Click space to restart game", Color.yellow, 40, 60, 300);
+
             AudioClip.playAudio(gameWin);
         }
          if (status != GameStatus.INITIALIZE) {
@@ -194,28 +209,36 @@ public class Main extends JFrame {
 
     //Player bullet & Enemy plane & Boss plane and bullet
     void createCompo() {
-        if (frame % 20 == 0) {
+        if (frame % planeFireRate == 0) {
             Utilities.fighterBulletList.add(new FighterBullet(Utilities.fighterBulletImg, planeFighter.getX() + 17, planeFighter.getY() - 20, 15, 30, 4, this));
             Utilities.componentList.add(Utilities.fighterBulletList.get(Utilities.fighterBulletList.size() - 1));
             AudioClip.playAudio(planeShoot, 0.1f);
         }
-        if (frame % 12 == 0) {
+        if (frame % enemyGeneRate == 0) {
             Utilities.enemyArrayList.add(new NormalEnemy(Utilities.enemyImg, (int) (Math.random() * 12) * 50, 0, 48, 37, 6, this));
             Utilities.componentList.add(Utilities.enemyArrayList.get(Utilities.enemyArrayList.size() - 1));
             enemyNum++;
         }
         //Boss appear
-        if (score > 20) {
+        if (score > reachingScore) {
             if (boss == null) {
                 boss = new EnemyBoss(Utilities.enemyBossImg, 250, 36, 150, 100, 6, this);
                 Utilities.componentList.add(boss);
                 AudioClip.playAudio(bossAppear);
             }
-            if (frame % 12 == 0 && boss != null) {
+            if (frame % bossFireRate == 0 && boss != null) {
                 Utilities.enemyBulletList.add(new EnemyBullet(Utilities.enemyBulletImg, boss.getX() + 50, boss.getY() + 70, 15, 25, 6, this));
                 Utilities.componentList.add(Utilities.enemyBulletList.get(Utilities.enemyBulletList.size() - 1));
                 AudioClip.playAudio(bossShoot);
             }
         }
+    }
+
+    void restart() {
+        score = 0;
+        lives = currentHardLevel[0];
+        Utilities.componentList.clear();
+        boss = null;
+        status = GameStatus.PLAYING;
     }
 }
