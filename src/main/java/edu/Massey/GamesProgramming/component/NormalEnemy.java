@@ -16,7 +16,7 @@ public class NormalEnemy extends ParentCompo {
 
     public NormalEnemy(Image img, int x, int y, int width, int height, double speed, Main main) {
         super(img, x, y, width, height, speed, main);
-        planeExplosion = AudioClip.loadAudio("src/main/resources/sounds/explosion.wav");
+        planeExplosion = AudioClip.loadAudio(Main.planeExplosionPath);
     }
 
     @Override

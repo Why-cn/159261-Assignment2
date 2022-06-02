@@ -9,7 +9,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 /*
 Entrance of the app
@@ -25,8 +24,13 @@ public class Main extends JFrame {
     int frame = 1;
 
     // === Hard Level Settings ===
-    private static int[] easy = {5, 30, 15, 12, 20};
-    private static int[] test = {5, 1, 15, 12, 20};
+    // To keep other files read, using static
+    // int[] = {Player Plane(PP) Lives, Boss appears when score is reached, PP Fire Rate, Normal Enemy Generate Rate,
+    // BOSS Fire Rate, Boss life}
+    private static int[] easy = {5, 20, 15, 12, 20, 15};
+    private static int[] normal = {4, 30, 18, 10, 15, 20};
+    private static int[] hard = {3, 40, 20, 8, 12, 25};
+    private static int[] test = {5, 1, 15, 12, 20, 20};
     private static int[] currentHardLevel = test;
     //Fighter life
     public static int lives = currentHardLevel[0];
@@ -35,30 +39,31 @@ public class Main extends JFrame {
     private int planeFireRate = currentHardLevel[2]; // less is faster
     private int enemyGeneRate = currentHardLevel[3]; // less is more frequent
     private int bossFireRate = currentHardLevel[4]; // less is faster
+    public static int bossLife = currentHardLevel[5];
 
 
     // === Sound settings ===
-    private final String soundbase = "src/main/resources/sounds/";
+    private static final String soundBase = "src/main/resources/sounds/";
     public AudioClip menuBgm;
-    private final String menuBgmPath = soundbase + "menumusic.wav";
+    public static final String menuBgmPath = soundBase + "menumusic.wav";
     public AudioClip planeBgm;
-    private final String planeBgmPath = "src/main/resources/bgm/bgm.wav";
+    public static final String planeBgmPath = "src/main/resources/bgm/bgm.wav";
     public AudioClip planeShoot;
-    private final String planeShootPath = soundbase + "shot.wav";
+    public static final String planeShootPath = soundBase + "shot.wav";
     public AudioClip bossAppear;
-    private final String bossAppearPath = soundbase + "bossappear.wav";
+    public static final String bossAppearPath = soundBase + "bossappear.wav";
     public AudioClip bossShoot;
-    private final String bossShootPath = soundbase + "bossshot.wav";
+    public static final String bossShootPath = soundBase + "bossshot.wav";
     public AudioClip planeExplosion;
-    private final String planeExplosionPath = soundbase + "planeexplosion.wav";
+    public static final String planeExplosionPath = soundBase + "explosion.wav";
     public AudioClip bossExplosion;
-    private final String bossExplosionPath = soundbase + "explosion.wav";
+    public static final String bossExplosionPath = soundBase + "bossexplosion.wav";
     public AudioClip playerPlaneExplosion;
-    private final String playerPlaneExplosionPath = soundbase + "gameover.wav";
+    public static final String playerPlaneExplosionPath = soundBase + "planeexplosion.wav";
     public AudioClip gameWin;
-    private final String gameWinPath = soundbase + "stageclear.wav";
+    public static final String gameWinPath = soundBase + "stageclear.wav";
     public AudioClip gameLose;
-    private final String gameLosePath = soundbase + "gameover.wav";
+    public static final String gameLosePath = soundBase + "gameover.wav";
 
 
     // === Init Settings ===
@@ -118,11 +123,13 @@ public class Main extends JFrame {
             }
         });
 
-        //Space to Pause
+        // Key Control
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == 32) {
+                int key = e.getKeyCode();
+//                System.out.println("key: " + key);
+                if (key == KeyEvent.VK_SPACE) {
                     switch (status) {
                         case PLAYING -> {
                             status = GameStatus.PAUSE;
@@ -133,6 +140,16 @@ public class Main extends JFrame {
                         default -> {
                         }
                     }
+                } else if (key == KeyEvent.VK_ENTER && status == GameStatus.INITIALIZE) {
+                    status = GameStatus.MENU;
+                } else if (key == KeyEvent.VK_1 && status == GameStatus.MENU) {
+                    currentHardLevel = easy;
+                } else if (key == KeyEvent.VK_2 && status == GameStatus.MENU) {
+                    currentHardLevel = normal;
+                } else if (key == KeyEvent.VK_3 && status == GameStatus.MENU) {
+                    currentHardLevel = hard;
+                } else if (key == KeyEvent.VK_ENTER && status == GameStatus.MENU) {
+                    status = GameStatus.PLAYING;
                 }
             }
         });
@@ -161,11 +178,19 @@ public class Main extends JFrame {
         graphics.drawImage(Utilities.backgroundImg, 0, 0, null);
         frame++;
         if (status == GameStatus.INITIALIZE) {
-            //Menu
+            // Init Menu
             Utilities.drawMessage(graphics, "WWⅡ Plane Shooting fighter", Color.white, 40, 50, 150);
             Utilities.drawMessage(graphics, "Click mouse to start game", Color.white, 30, 150, 350);
             Utilities.drawMessage(graphics, "Mouse to control the plane", Color.white, 20, 200, 400);
             Utilities.drawMessage(graphics, "Space to pause the game", Color.white, 20, 200, 440);
+            Utilities.drawMessage(graphics, "Enter to set the hard level", Color.white, 20, 200, 480);
+        }
+        if (status == GameStatus.MENU) {
+            // Hard Level Menu
+            Utilities.drawMessage(graphics, "WWⅡ Plane Shooting fighter", Color.white, 40, 50, 150);
+            Utilities.drawMessage(graphics, "Type key to set hard level", Color.white, 30, 150, 350);
+            Utilities.drawMessage(graphics, "1 - easy(default), 2 - normal, 3 - hard", Color.white, 20, 200, 400);
+            Utilities.drawMessage(graphics, "Enter to start the game", Color.white, 20, 200, 440);
         }
         if (status == GameStatus.PLAYING) {
             Utilities.componentList.addAll(Utilities.explodeArrayList);

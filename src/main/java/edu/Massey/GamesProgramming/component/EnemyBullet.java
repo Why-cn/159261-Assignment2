@@ -16,7 +16,7 @@ public class EnemyBullet extends ParentCompo {
 
     public EnemyBullet(Image img, int x, int y, int width, int height, double speed, Main main) {
         super(img, x, y, width, height, speed, main);
-        playerPlaneExplosion = AudioClip.loadAudio("src/main/resources/sounds/planeexplosion.wav");
+        playerPlaneExplosion = AudioClip.loadAudio(Main.playerPlaneExplosionPath);
         //enemyPlaneShoot = AudioClip.loadAudio("src/main/resources/sounds/shot.wav");
     }
     //public AudioClip enemyPlaneShoot;

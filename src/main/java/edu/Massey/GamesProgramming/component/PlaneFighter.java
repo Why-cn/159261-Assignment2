@@ -18,7 +18,7 @@ public class PlaneFighter extends ParentCompo {
 
     public PlaneFighter(Image img, int x, int y, int width, int height, double speed, Main main) {
         super(img, x, y, width, height, speed, main);
-        playerPlaneExplosion = AudioClip.loadAudio("src/main/resources/sounds/planeexplosion.wav");
+        playerPlaneExplosion = AudioClip.loadAudio(Main.playerPlaneExplosionPath);
         this.jframe.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {

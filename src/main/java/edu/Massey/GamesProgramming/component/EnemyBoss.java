@@ -12,11 +12,11 @@ Boss class
 public class EnemyBoss extends ParentCompo {
 
     public AudioClip planeExplosion;
-    int life = 20;
+    int life = Main.bossLife;
 
     public EnemyBoss(Image img, int x, int y, int width, int height, double speed, Main main) {
         super(img, x, y, width, height, speed, main);
-        planeExplosion = AudioClip.loadAudio("src/main/resources/sounds/explosion.wav");
+        planeExplosion = AudioClip.loadAudio(Main.planeExplosionPath);
     }
 
     @Override
