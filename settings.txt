@@ -1,3 +1,0 @@
-numOfLives=7
-musicVolume=29
-gameEffectsVolume=70

@@ -10,7 +10,7 @@ public class Settings extends JFrame {
     private JFrame frame;
     private JPanel panel;
 
-    int numOfLives = 0;
+    String difficulty = "";
     int musicVolume = 0;
     int gameEffectsVolume = 0;
 
@@ -19,6 +19,7 @@ public class Settings extends JFrame {
     }
     public Settings() {
         loadSettings();
+        //System.out.println(difficulty + " " + musicVolume + " " + gameEffectsVolume);
         setupGUI();
     }
     private void setupGUI() {
@@ -45,14 +46,14 @@ public class Settings extends JFrame {
         saveButton.setBounds(250,320,120,35);
         quitButton.setBounds(370, 320, 100,35);
 
-        JLabel numOfLivesL = new JLabel("Number of Lives:");
-        JSlider numOfLivesS = new JSlider(JSlider.HORIZONTAL,1,10,numOfLives);
-        numOfLivesS.setMajorTickSpacing(1);
-        numOfLivesS.setPaintLabels(true);
-        numOfLivesS.setPaintTicks(true);
+        JLabel gameDifficultyL = new JLabel("Game difficulty:");
+        String difficultyList[] = {"Easy", "Normal", "Hard"};
+        JComboBox gameDifficultyC = new JComboBox<>(difficultyList);
+        gameDifficultyC.setSelectedItem(difficulty);
 
-        numOfLivesL.setBounds(110,70,120,25);
-        numOfLivesS.setBounds(230, 70, 150, 50);
+
+        gameDifficultyL.setBounds(120,70,120,25);
+        gameDifficultyC.setBounds(240, 70, 150, 50);
 
 
         JLabel musicVolumeL = new JLabel("Music Volume:");
@@ -94,10 +95,10 @@ public class Settings extends JFrame {
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                numOfLives = numOfLivesS.getValue();
+                difficulty = gameDifficultyC.getSelectedItem().toString();
                 musicVolume = musicVolumeS.getValue();
                 gameEffectsVolume = gameEffectsVolumeS.getValue();
-                System.out.println(numOfLives + " " + musicVolume + " " + gameEffectsVolume);
+                //System.out.println(difficulty + " " + musicVolume + " " + gameEffectsVolume);
                 saveGameSettings();
                 JOptionPane.showMessageDialog(null,"Settings have successfully been saved!");
             }
@@ -108,8 +109,8 @@ public class Settings extends JFrame {
         panel.add(gameEffectsVolumeS);
         panel.add(musicVolumeL);
         panel.add(musicVolumeS);
-        panel.add(numOfLivesL);
-        panel.add(numOfLivesS);
+        panel.add(gameDifficultyL);
+        panel.add(gameDifficultyC);
         panel.add(saveButton);
         panel.add(mainMenuButton);
         panel.add(quitButton);
@@ -136,8 +137,8 @@ public class Settings extends JFrame {
 
     private void convertStringToSettings(String s) {
         String[] data = s.split("=");
-        if (data[0].equals("numOfLives")){
-            numOfLives = Integer.parseInt(data[1]);
+        if (data[0].equals("difficulty")){
+            difficulty = data[1];
         }
         if(data[0].equals("musicVolume")){
             musicVolume = Integer.parseInt(data[1]);
@@ -156,8 +157,8 @@ public class Settings extends JFrame {
             System.out.println("Failed to deleted file");
         }
         try {
-            FileWriter newFile = new FileWriter("settings.txt");
-            newFile.write("numOfLives=" + numOfLives + "\nmusicVolume="+musicVolume+"\ngameEffectsVolume="+gameEffectsVolume);
+            FileWriter newFile = new FileWriter("src/main/resources/settings.txt");
+            newFile.write("difficulty=" + difficulty + "\nmusicVolume="+musicVolume+"\ngameEffectsVolume="+gameEffectsVolume);
             newFile.close();
         }
         catch (IOException e) {
