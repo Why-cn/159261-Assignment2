@@ -37,9 +37,10 @@ public class Main extends JFrame {
     private static int[] test = {5, 1, 15, 12, 20, 20};
     private static int[] currentLevel = {0,0,0,0,0,0};
 
+    // === Settings File Init ===
     private static String difficulty = "";
-    private static int gameEffectsVolume = 0;
-    private static int musicVolume = 0;
+    public static float gameEffectsVolume = 0;
+    public static float musicVolume = 0;
 
     //Fighter life
     public static int lives = currentLevel[0];
@@ -219,25 +220,25 @@ public class Main extends JFrame {
         if (status == GameStatus.FAIL) {
             //Being shot down
             lives = 0;
-            AudioClip.playAudio(playerPlaneExplosion);
+            AudioClip.playAudio(playerPlaneExplosion, gameEffectsVolume);
             AudioClip.stopAudioLoop(planeBgm);
             graphics.setColor(Color.BLACK);
             graphics.fillRect(0, 0, width, height);
             Utilities.drawMessage(graphics, "GAME OVER", Color.RED, 50, 150, 300);
             Utilities.drawMessage(graphics, "Hint: Don't crash onto the boss!", Color.yellow, 30, 50, 500);
             Utilities.drawMessage(graphics, "Click space to restart game", Color.yellow, 40, 60, 400);
-            AudioClip.playAudio(gameLose);
+            AudioClip.playAudio(gameLose, gameEffectsVolume);
         }
         if (status == GameStatus.PASS) {
             //Defeat the Boss
-            AudioClip.playAudio(bossExplosion);
+            AudioClip.playAudio(bossExplosion, gameEffectsVolume);
             AudioClip.stopAudioLoop(planeBgm);
             graphics.setColor(Color.BLUE);
             graphics.fillRect(0, 0, width, height);
             Utilities.drawMessage(graphics, "YOU WIN", Color.GREEN, 50, 160, 300);
             Utilities.drawMessage(graphics, "Click space to restart game", Color.yellow, 40, 60, 400);
 
-            AudioClip.playAudio(gameWin);
+            AudioClip.playAudio(gameWin, gameEffectsVolume);
         }
          if (status != GameStatus.INITIALIZE) {
             Utilities.drawMessage(graphics, score + " points", Color.white, 30, 30, 100);
@@ -251,7 +252,7 @@ public class Main extends JFrame {
         if (frame % planeFireRate == 0) {
             Utilities.fighterBulletList.add(new FighterBullet(Utilities.fighterBulletImg, planeFighter.getX() + 17, planeFighter.getY() - 20, 15, 30, 4, this));
             Utilities.componentList.add(Utilities.fighterBulletList.get(Utilities.fighterBulletList.size() - 1));
-            AudioClip.playAudio(planeShoot, 0.1f);
+            AudioClip.playAudio(planeShoot, gameEffectsVolume);
         }
         if (frame % enemyGeneRate == 0) {
             Utilities.enemyArrayList.add(new NormalEnemy(Utilities.enemyImg, (int) (Math.random() * 12) * 50, 0, 48, 37, 6, this));
@@ -263,12 +264,12 @@ public class Main extends JFrame {
             if (boss == null) {
                 boss = new EnemyBoss(Utilities.enemyBossImg, 250, 36, 150, 100, 6, this);
                 Utilities.componentList.add(boss);
-                AudioClip.playAudio(bossAppear);
+                AudioClip.playAudio(bossAppear, gameEffectsVolume);
             }
             if (frame % bossFireRate == 0 && boss != null) {
                 Utilities.enemyBulletList.add(new EnemyBullet(Utilities.enemyBulletImg, boss.getX() + 50, boss.getY() + 70, 15, 25, 6, this));
                 Utilities.componentList.add(Utilities.enemyBulletList.get(Utilities.enemyBulletList.size() - 1));
-                AudioClip.playAudio(bossShoot);
+                AudioClip.playAudio(bossShoot, gameEffectsVolume);
             }
         }
     }
@@ -283,6 +284,7 @@ public class Main extends JFrame {
         status = GameStatus.PLAYING;
         AudioClip.startAudioLoop(planeBgm);
     }
+
     private static void loadSettings() {
         {
             try {
@@ -323,10 +325,10 @@ public class Main extends JFrame {
             
         }
         if(data[0].equals("musicVolume")){
-            musicVolume = Integer.parseInt(data[1]);
+            musicVolume = Float.parseFloat(data[1]);
         }
         if(data[0].equals("gameEffectsVolume")) {
-            gameEffectsVolume = Integer.parseInt(data[1]);
+            gameEffectsVolume = Float.parseFloat(data[1]);
         }
     }
 }

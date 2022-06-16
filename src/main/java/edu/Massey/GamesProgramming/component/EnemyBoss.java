@@ -30,7 +30,7 @@ public class EnemyBoss extends ParentCompo {
             if (this.getRec().intersects(fighterBullet.getRec())) {
                 Explode explode = new Explode(x, y);
                 Utilities.explodeArrayList.add(explode);
-                AudioClip.playAudio(planeExplosion);
+                AudioClip.playAudio(planeExplosion, Main.gameEffectsVolume);
                 fighterBullet.setX(-100);
                 fighterBullet.setY(100);
                 Utilities.deleteList.add(fighterBullet);

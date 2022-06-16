@@ -16,6 +16,8 @@ public class AudioClip {
     long mLength;
     // Loop Clip
     Clip mLoopClip;
+    // File name
+    String fileName;
 
     public Clip getLoopClip() {
         // return mLoopClip
@@ -42,13 +44,18 @@ public class AudioClip {
         return mLength;
     }
 
-    public AudioClip(AudioInputStream stream) {
+    public String getFileName() {
+        return this.fileName;
+    }
+
+    public AudioClip(AudioInputStream stream, String fileName) {
         // Get Format
         mFormat = stream.getFormat();
         // Get length (in Frames)
         mLength = stream.getFrameLength() * mFormat.getFrameSize();
         // Allocate Buffer Data
         mData = new byte[(int) mLength];
+        this.fileName = fileName;
         try {
             // Read data
             stream.read(mData);
@@ -70,7 +77,7 @@ public class AudioClip {
             // Open Audio Input Stream
             AudioInputStream audio = AudioSystem.getAudioInputStream(file);
             // Create Audio Clip
-            AudioClip clip = new AudioClip(audio);
+            AudioClip clip = new AudioClip(audio, filename);
             // Return Audio Clip
             return clip;
         } catch (Exception e) {
@@ -125,7 +132,8 @@ public class AudioClip {
             clip.start();
         } catch (Exception exception) {
             // Display Error Message
-            System.out.println("Error: could not play Audio Clip\n");
+            System.out.println(exception.toString());
+            System.out.println("Error: could not play Audio Clip: " + audioClip.getFileName());
         }
     }
 

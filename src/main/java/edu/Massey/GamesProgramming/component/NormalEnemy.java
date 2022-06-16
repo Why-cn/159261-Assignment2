@@ -29,7 +29,7 @@ public class NormalEnemy extends ParentCompo {
                 lives--;
                 Explode explodeObj = new Explode(x, y);
                 Utilities.explodeArrayList.add(explodeObj);
-                AudioClip.playAudio(planeExplosion);
+                AudioClip.playAudio(planeExplosion, Main.gameEffectsVolume);
                 this.x = -200;
                 this.y = 200;
                 Utilities.deleteList.add(explodeObj);
@@ -49,7 +49,7 @@ public class NormalEnemy extends ParentCompo {
             if (this.getRec().intersects(fighterBullet.getRec())) {
                 Explode explode = new Explode(x, y);
                 Utilities.explodeArrayList.add(explode);
-                AudioClip.playAudio(planeExplosion);
+                AudioClip.playAudio(planeExplosion, Main.gameEffectsVolume);
                 fighterBullet.setX(-100);
                 fighterBullet.setY(-100);
                 this.x = -200;

@@ -31,7 +31,7 @@ public class EnemyBullet extends ParentCompo {
                 lives--;
                 Explode explodeObj = new Explode(x, y);
                 Utilities.explodeArrayList.add(explodeObj);
-                AudioClip.playAudio(playerPlaneExplosion);
+                AudioClip.playAudio(playerPlaneExplosion, Main.gameEffectsVolume);
                 this.x = -300;
                 this.y = 300;
                 Utilities.deleteList.add(explodeObj);
