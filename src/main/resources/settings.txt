@@ -1,3 +1,3 @@
 difficulty=Hard
-musicVolume=65
+musicVolume=-10.0
 gameEffectsVolume=-50.0

@@ -120,7 +120,7 @@ public class Main extends JFrame {
         playerPlaneExplosion = AudioClip.loadAudio(playerPlaneExplosionPath);
         bossExplosion = AudioClip.loadAudio(bossExplosionPath);
         //Start menu BGM
-        AudioClip.startAudioLoop(menuBgm);
+        AudioClip.startAudioLoop(menuBgm, musicVolume);
         //Click mouse to start
         this.addMouseListener(new MouseAdapter() {
             @Override
@@ -129,7 +129,7 @@ public class Main extends JFrame {
                     status = GameStatus.PLAYING;
                     //Start playing BGM
                     AudioClip.stopAudioLoop(menuBgm);
-                    AudioClip.startAudioLoop(planeBgm);
+                    AudioClip.startAudioLoop(planeBgm, musicVolume);
                 }
             }
         });
@@ -282,7 +282,7 @@ public class Main extends JFrame {
         Utilities.componentList.add(planeFighter);
         boss = null;
         status = GameStatus.PLAYING;
-        AudioClip.startAudioLoop(planeBgm);
+        AudioClip.startAudioLoop(planeBgm, musicVolume);
     }
 
     private static void loadSettings() {
