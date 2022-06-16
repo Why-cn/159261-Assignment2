@@ -2,13 +2,17 @@ package edu.Massey.GamesProgramming;
 
 import edu.Massey.GamesProgramming.component.*;
 import edu.Massey.GamesProgramming.utility.*;
-
+import edu.Massey.GamesProgramming.Settings.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 /*
 Entrance of the app
@@ -31,15 +35,20 @@ public class Main extends JFrame {
     private static int[] normal = {4, 30, 18, 10, 15, 20};
     private static int[] hard = {3, 40, 20, 8, 12, 25};
     private static int[] test = {5, 1, 15, 12, 20, 20};
-    private static int[] currentHardLevel = test;
+    private static int[] currentLevel = {0,0,0,0,0,0};
+
+    private static String difficulty = "";
+    private static int gameEffectsVolume = 0;
+    private static int musicVolume = 0;
+
     //Fighter life
-    public static int lives = currentHardLevel[0];
+    public static int lives = currentLevel[0];
     // Reaching score of the boss appearing
-    private int reachingScore = currentHardLevel[1];
-    private int planeFireRate = currentHardLevel[2]; // less is faster
-    private int enemyGeneRate = currentHardLevel[3]; // less is more frequent
-    private int bossFireRate = currentHardLevel[4]; // less is faster
-    public static int bossLife = currentHardLevel[5];
+    private static int reachingScore = currentLevel[1];
+    private static int planeFireRate = currentLevel[2]; // less is faster
+    private static int enemyGeneRate = currentLevel[3]; // less is more frequent
+    private static int bossFireRate = currentLevel[4]; // less is faster
+    public static int bossLife = currentLevel[5];
 
 
     // === Sound settings ===
@@ -84,6 +93,7 @@ public class Main extends JFrame {
 
     // === Entrance of the game ===
     public static void main(String[] args) {
+        loadSettings();
         Main gameFrame = new Main();
         gameFrame.start();
     }
@@ -128,7 +138,6 @@ public class Main extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 int key = e.getKeyCode();
-//                System.out.println("key: " + key);
                 if (key == KeyEvent.VK_SPACE) {
                     switch (status) {
                         case PLAYING -> {
@@ -142,12 +151,15 @@ public class Main extends JFrame {
                     }
                 } else if (key == KeyEvent.VK_ENTER && status == GameStatus.INITIALIZE) {
                     status = GameStatus.MENU;
+                /*
                 } else if (key == KeyEvent.VK_1 && status == GameStatus.MENU) {
-                    currentHardLevel = easy;
+                    currentLevel = easy;
                 } else if (key == KeyEvent.VK_2 && status == GameStatus.MENU) {
-                    currentHardLevel = normal;
+                    currentLevel = normal;
                 } else if (key == KeyEvent.VK_3 && status == GameStatus.MENU) {
-                    currentHardLevel = hard;
+                    currentLevel = hard;
+
+                */
                 } else if (key == KeyEvent.VK_ENTER && status == GameStatus.MENU) {
                     status = GameStatus.PLAYING;
                 }
@@ -263,12 +275,58 @@ public class Main extends JFrame {
 
     void restart() {
         score = 0;
-        lives = currentHardLevel[0];
+        lives = currentLevel[0];
         Utilities.componentList.clear();
         Utilities.componentList.add(bg);
         Utilities.componentList.add(planeFighter);
         boss = null;
         status = GameStatus.PLAYING;
         AudioClip.startAudioLoop(planeBgm);
+    }
+    private static void loadSettings() {
+        {
+            try {
+                File file = new File("src/main/resources/settings.txt");
+                FileReader fr = new FileReader(file);
+                BufferedReader br = new BufferedReader(fr);
+                String line;
+                while ((line = br.readLine()) != null) {
+                    convertStringToSettings(line);
+                }
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void convertStringToSettings(String s) {
+        String[] data = s.split("=");
+        if (data[0].equals("difficulty")){
+            difficulty = data[1];
+            if (difficulty.equals("Easy")){
+                currentLevel = easy;
+            }
+            if (difficulty.equals("Normal")){
+                currentLevel = normal;
+            }
+            if (difficulty.equals("Hard")){
+                currentLevel = hard;
+            }
+            lives = currentLevel[0];
+            reachingScore = currentLevel[1];
+            planeFireRate = currentLevel[2];
+            enemyGeneRate = currentLevel[3];
+            bossFireRate = currentLevel[4];
+            bossLife = currentLevel[5];
+
+            
+        }
+        if(data[0].equals("musicVolume")){
+            musicVolume = Integer.parseInt(data[1]);
+        }
+        if(data[0].equals("gameEffectsVolume")) {
+            gameEffectsVolume = Integer.parseInt(data[1]);
+        }
     }
 }

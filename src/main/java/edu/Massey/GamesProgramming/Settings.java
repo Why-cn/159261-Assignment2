@@ -19,7 +19,6 @@ public class Settings extends JFrame {
     }
     public Settings() {
         loadSettings();
-        //System.out.println(difficulty + " " + musicVolume + " " + gameEffectsVolume);
         setupGUI();
     }
     private void setupGUI() {

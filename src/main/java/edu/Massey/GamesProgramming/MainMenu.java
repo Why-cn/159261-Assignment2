@@ -99,6 +99,7 @@ public class MainMenu extends JFrame {
         singlePlayerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Main.main(null);
                 frame.dispose();
             }
         });
