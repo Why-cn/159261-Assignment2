@@ -1,4 +1,6 @@
 package edu.Massey.GamesProgramming;
+import com.almasb.fxgl.app.MainWindow;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -97,8 +99,20 @@ public class MainMenu extends JFrame {
         startGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                /*Button isnt currently working.
+                I've tried.
+
+                Main s = new Main();
+                s.main(null);
+
+                And
 
                 Main.main(null);
+
+
+                */
+                Main s = new Main();
+                s.start();
                 frame.dispose();
             }
         });
