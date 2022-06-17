@@ -327,7 +327,7 @@ public class Main extends JFrame {
         }
 
         if(data[0].equals("gameEffectsVolume")) {
-            gameEffectsVolume = Float.parseFloat(data[1]);
+            gameEffectsVolume = (float) (Float.parseFloat(data[1]) * 0.06026);
         }
     }
 }
