@@ -79,11 +79,10 @@ public class MainMenu extends JFrame {
                 JOptionPane.showMessageDialog(null,
                         "MTU Group 2.\n" +
                                 "WW2 Plane Shooter Game.\n" +
-                                "Game can be played solo or two player.\n" +
-                                "Two player controls are WASD & Arrow Keys.\n" +
-                                "Solo player control is done with the mouse.\n" +
+                                "Game is single player.\n" +
+                                "Game is controlled with the mouse.\n" +
                                 "User can control difficulty in the settings.\n" +
-                                "Aim of the game is to survive as long as possible and down as many bosses & planes."
+                                "Aim of the game is to down as many planes as possible and to take down the final boss."
                 );
             }
         });
@@ -120,7 +119,7 @@ public class MainMenu extends JFrame {
         panel.add(plane1);
         panel.add(plane2);
         panel.add(header);
-        panel.add(startGameButton);
+        //panel.add(startGameButton);
         panel.add(helpButton);
         panel.add(settingsButton);
         panel.add(quitButton);
