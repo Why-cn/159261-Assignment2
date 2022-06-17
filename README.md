@@ -47,38 +47,11 @@ File updating from saved settings<br/>
 ![image](https://user-images.githubusercontent.com/105618898/174269879-a096cd0d-3a74-42d9-98d0-7d2198451a7b.png)
 <br/>
 
-
-Game design
-
-Game control
-
-(Pic, sound)
-
-(Logic)
-
-(Fire design)
-
-Hard Level settings
-
-
-Enemy
-
-(Pic, sound)
-
-(Logic)
-
-Boss
-
-(Pic, sound)
-
-(Logic)
-
-(Fire design)
-
-Run the game
-
-(how to)
-
-Play the game
-
-(Screenshot)
+<br/>
+Credits:
+<br/>
+Tommy J 21013898
+<br/>
+Created the menu & game settings. Also added the loading of the game settings to the game itself.
+<br/>
+Also did the screenshots & game description. 
