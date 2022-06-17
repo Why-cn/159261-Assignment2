@@ -20,32 +20,32 @@ for the player to compete with their previous scores.
 Intro
 
 
-Game Screenshots
-
-Gameplay
+Game Screenshots<br/>
+<br/>
+Gameplay<br/>
 ![image](https://user-images.githubusercontent.com/105618898/174268770-c911ff72-99c3-4aa1-a8a5-d7b4f4cde338.png)
-
-Game over screenshot
+<br/>
+Game over screenshot<br/>
 ![image](https://user-images.githubusercontent.com/105618898/174268980-d3c2471a-1716-45f2-a9cc-69c151becec7.png)
-
-Game win screenshot
+<br/>
+Game win screenshot<br/>
 ![image](https://user-images.githubusercontent.com/105618898/174269363-e3787e33-d283-4ed7-bf58-b1d7b5fe11a0.png)
-
-
-Menu screenshots
-
-Menu
+<br/>
+<br/>
+Menu screenshots<br/>
+<br/>
+Menu<br/>
 ![image](https://user-images.githubusercontent.com/105618898/174269485-fc893793-c6b4-41a5-927d-ef923c88175f.png)
-
-Help
+<br/>
+Help<br/>
 ![image](https://user-images.githubusercontent.com/105618898/174269512-b661d37a-eb04-4a58-9a13-7c519d00e955.png)
-
-Game settings
+<br/>
+Game settings<br/>
 ![image](https://user-images.githubusercontent.com/105618898/174269687-9e7b266b-b813-4372-bc4b-1b3697a74037.png)
-
-File updating from saved settings
+<br/>
+File updating from saved settings<br/>
 ![image](https://user-images.githubusercontent.com/105618898/174269879-a096cd0d-3a74-42d9-98d0-7d2198451a7b.png)
-
+<br/>
 
 
 Game design
