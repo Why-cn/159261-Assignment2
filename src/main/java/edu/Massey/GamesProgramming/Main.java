@@ -2,7 +2,6 @@ package edu.Massey.GamesProgramming;
 
 import edu.Massey.GamesProgramming.component.*;
 import edu.Massey.GamesProgramming.utility.*;
-import edu.Massey.GamesProgramming.Settings.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -34,7 +33,7 @@ public class Main extends JFrame {
     private static int[] easy = {5, 20, 15, 12, 20, 15};
     private static int[] normal = {4, 30, 18, 10, 15, 20};
     private static int[] hard = {3, 40, 20, 8, 12, 25};
-    private static int[] test = {5, 1, 15, 12, 20, 20};
+    //private static int[] test = {5, 1, 15, 12, 20, 20};
     private static int[] currentLevel = {0,0,0,0,0,0};
 
     // === Settings File Init ===
@@ -321,14 +320,14 @@ public class Main extends JFrame {
             enemyGeneRate = currentLevel[3];
             bossFireRate = currentLevel[4];
             bossLife = currentLevel[5];
-
-            
         }
+
         if(data[0].equals("musicVolume")){
             musicVolume = Float.parseFloat(data[1]);
         }
+
         if(data[0].equals("gameEffectsVolume")) {
-            gameEffectsVolume = Float.parseFloat(data[1]);
+            gameEffectsVolume = (float) (Float.parseFloat(data[1]) * 0.06026);
         }
     }
 }
