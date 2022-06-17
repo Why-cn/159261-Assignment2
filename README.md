@@ -5,20 +5,16 @@ BGM & music effects are free use under Attribution 1.0/3.0 Unported license, fro
 
 ShootingStar Team Show
 
-Our shooting game's objective is to get as many points as possible while trying to defeat one boss plane. 
-In this game the player earns points by shooting the planes down. The user has a limited amount of lives which is 
-dependent on the difficulty settings the player has chosen in the main menu. The lives will be deducted when the 
-player hits other planes or gets hit by the boss plane's shot. 
+Our shooting game's objective is to get as many points as possible while trying to defeat one boss plane.
+In this game the player earns points by shooting the planes down. The user has a limited amount of lives which is
+dependent on the difficulty settings the player has chosen in the main menu. The lives will be deducted when the
+player hits other planes or gets hit by the boss plane's shot.
 
 Defeating the boss plane is the main objective of this game. Once they have been defeated the player has then
 won the game and a win screen will be displayed. The end score and lives will still be displayed at this screen
-for the player to compete with their previous scores. 
-
-
-
+for the player to compete with their previous scores.
 
 Intro
-
 
 Game Screenshots<br/>
 <br/>
@@ -54,4 +50,10 @@ Tommy J 21013898
 <br/>
 Created the menu & game settings. Also added the loading of the game settings to the game itself.
 <br/>
-Also did the screenshots & game description. 
+Also did the screenshots & game description.
+
+<br/>
+Haoyu Wang 19023462
+<br/>
+Implement the audio playing function, game restartable, difficulities, starting page, pause page and ending page.
+
