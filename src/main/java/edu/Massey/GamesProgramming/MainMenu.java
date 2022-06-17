@@ -52,15 +52,13 @@ public class MainMenu extends JFrame {
         plane1.setBounds(60,80,97,75);
         plane2.setBounds(440,80,97,75);
 
-        JButton singlePlayerButton = new JButton("Single Player");
-        JButton coOPButton = new JButton("Co-op");
+        JButton startGameButton = new JButton("Start Game");
 
         JButton helpButton = new JButton("Help");
         JButton settingsButton = new JButton("Settings");
         JButton quitButton = new JButton("Quit");
 
-        singlePlayerButton.setBounds(150,180,150,30);
-        coOPButton.setBounds(310, 180, 150, 30);
+        startGameButton.setBounds(225,180,150,30);
 
         helpButton.setBounds(100, 220, 130, 30);
         settingsButton.setBounds(235, 220, 130, 30);
@@ -96,24 +94,19 @@ public class MainMenu extends JFrame {
             }
         });
 
-        singlePlayerButton.addActionListener(new ActionListener() {
+        startGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 Main.main(null);
                 frame.dispose();
-            }
-        });
-        coOPButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
             }
         });
 
         panel.add(plane1);
         panel.add(plane2);
         panel.add(header);
-        panel.add(singlePlayerButton);
-        panel.add(coOPButton);
+        panel.add(startGameButton);
         panel.add(helpButton);
         panel.add(settingsButton);
         panel.add(quitButton);
