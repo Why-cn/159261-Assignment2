@@ -194,15 +194,14 @@ public class Main extends JFrame {
             Utilities.drawMessage(graphics, "WWⅡ Plane Shooting fighter", Color.white, 40, 50, 150);
             Utilities.drawMessage(graphics, "Click mouse to start game", Color.white, 30, 150, 350);
             Utilities.drawMessage(graphics, "Mouse to control the plane", Color.white, 20, 200, 400);
-            Utilities.drawMessage(graphics, "Space to pause the game", Color.white, 20, 200, 440);
-            Utilities.drawMessage(graphics, "Enter to set the hard level", Color.white, 20, 200, 480);
+            //Utilities.drawMessage(graphics, "Space to pause the game", Color.white, 20, 200, 440);
         }
         if (status == GameStatus.MENU) {
             // Hard Level Menu
             Utilities.drawMessage(graphics, "WWⅡ Plane Shooting fighter", Color.white, 40, 50, 150);
             Utilities.drawMessage(graphics, "Type key to set hard level", Color.white, 30, 150, 350);
             Utilities.drawMessage(graphics, "1 - easy(default), 2 - normal, 3 - hard", Color.white, 20, 200, 400);
-            Utilities.drawMessage(graphics, "Enter to start the game", Color.white, 20, 200, 440);
+            //Utilities.drawMessage(graphics, "Enter to start the game", Color.white, 20, 200, 440);
         }
         if (status == GameStatus.PLAYING) {
             Utilities.componentList.addAll(Utilities.explodeArrayList);
