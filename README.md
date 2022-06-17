@@ -50,3 +50,4 @@ File updating from saved settings<br/>
 Credits:
 Tommy J 21013898
 Created the menu & game settings. Also added the loading of the game settings to the game itself.
+Also did the screenshots & game description. 
